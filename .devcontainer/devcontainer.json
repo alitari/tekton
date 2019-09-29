@@ -1,0 +1,15 @@
+{
+	"name": "tekton",
+	"dockerFile": "Dockerfile",
+	"runArgs": [
+		"-e",
+		"TZ=Europe/Amsterdam"
+	],
+	"extensions": [
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"ms-azuretools.vscode-docker"
+	],
+	"settings":{
+	},
+	"postCreateCommand": "helm repo add stable https://kubernetes-charts.storage.googleapis.com"
+}

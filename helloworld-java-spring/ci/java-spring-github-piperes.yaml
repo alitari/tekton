@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: helloworld-java-spring-github
+spec:
+  type: git
+  params:
+    - name: revision
+      value: master
+    - name: url
+      value: https://github.com/alitari/ho_knative

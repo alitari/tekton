@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: param-task
+spec:
+  inputs:
+    params:
+      - name: command
+        type: string
+      - name: flags
+        type: array
+  steps:
+    - name: step1
+      image: ubuntu
+      command:
+        - $(inputs.params.command)
+      args: 
+        - "$(inputs.params.flags)"

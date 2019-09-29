@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: helloworld-java-spring-image
+spec:
+  type: image
+  params:
+    - name: url
+      value: index.docker.io/alitari/helloworld-java-spring

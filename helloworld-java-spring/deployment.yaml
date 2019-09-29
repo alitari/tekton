@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-java-spring
+  labels:
+    app: helloworld-java-spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworld-java-spring
+  template:
+    metadata:
+      labels:
+        app: helloworld-java-spring
+    spec:
+      containers:
+        - name: helloworld-java-spring
+          image: gcr.io/k8s-skaffold/leeroy-web
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
