@@ -36,7 +36,7 @@ tkn taskrun logs ${taskname}-taskrun
 |`param`| Usage of [input parameters](https://github.com/tektoncd/pipeline/blob/v0.7.0/docs/tasks.md#parameters) |
 |`resource`| Usage of pipeline resources. You need a git resource: e.g. `kubectl apply -f helloworld-java-spring/ci/java-spring-github-piperes.yaml` |
 |`volume`| Usage of mounted volumes |
-|`secret`| Usage of mounted volumes |
+|`secret`| Usage of secrets |
 
 
 
