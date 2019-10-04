@@ -10,7 +10,7 @@ kubectl apply -f https://storage.googleapis.com/tekton-releases/latest/release.y
 
 ### install dashboard
 
-Note: the ingress works omly if an [ingress controller](https://github.com/helm/charts/tree/master/stable/nginx-ingress) is already installed. The dashboard is then accessible on `http://127.0.0.1.nip.io`
+Note: the ingress works omly if an [ingress controller](https://github.com/helm/charts/tree/master/stable/nginx-ingress) is already installed. The dashboard is then accessible on `http://dashboard.127.0.0.1.nip.io`
 
 ```bash
 kubectl apply -f https://github.com/tektoncd/dashboard/releases/download/v0.1.1/release.yaml
@@ -19,17 +19,23 @@ kubectl apply -f dashboard-ingress.yaml
 
 ## tasks
 
-### simple examples
+### examples
 
 ```bash
 # create task
-kubectl apply -f tasks/simplest-task.yaml
+kubectl apply -f tasks/${taskname}-task.yaml
 # run task
-kubectl apply -f tasks/simplest-taskrun.yaml
+kubectl apply -f tasks/${taskname}-taskrun.yaml
 # inspect task run
-tkn taskrun logs simplest-taskrun
+tkn taskrun logs ${taskname}-taskrun
 ```
-etc.
+
+| taskname | description |
+| ------------| -------- |
+|`simplest`| hello world |
+|`param`| Usage of [input parameters](https://github.com/tektoncd/pipeline/blob/v0.7.0/docs/tasks.md#parameters) |
+|`resource`| Usage of pipeline resources. You need git resource `kubectl apply -f helloworld-java-spring/ci/java-spring-github-piperes.yaml`. |
+
 
 
 ### build a java spring app
