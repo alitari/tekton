@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: resource-task
+spec:
+  inputs:
+    resources:
+      - name: reporoot
+        type: git
+  steps:
+    - name: show-repo
+      image: ubuntu
+      workingDir: "/workspace/reporoot"
+      command:
+        - ls
+      args: 
+        - -l
+        - -a

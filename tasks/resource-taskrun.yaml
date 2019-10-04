@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: resource-taskrun
+spec:
+  taskRef:
+    name: resource-task
+  inputs:
+    resources:
+      - name: reporoot
+        resourceRef:
+          name: helloworld-java-spring-github
