@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: volume-task
+spec:
+  steps:
+    - name: write
+      image: ubuntu
+      command: ["bash"]
+      args: ["-c","echo 'Hello World!' > /write/my-volume/hello-world.txt"]
+      volumeMounts:
+        - name: my-volume
+          mountPath: /write/my-volume
+    - name: read
+      image: ubuntu
+      command: ["cat"]
+      args: ["/read/my-volume/hello-world.txt"]
+      volumeMounts:
+        - name: my-volume
+          mountPath: /read/my-volume
+  volumes:
+    - name: my-volume
+      emptyDir: {}
