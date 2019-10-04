@@ -10,7 +10,7 @@ kubectl apply -f https://storage.googleapis.com/tekton-releases/latest/release.y
 
 ### install dashboard
 
-Note: the ingress works omly if an [ingress controller](https://github.com/helm/charts/tree/master/stable/nginx-ingress) is already installed. The dashboard is then accessible on `http://dashboard.127.0.0.1.nip.io`
+Note: the ingress works only if an [ingress controller](https://github.com/helm/charts/tree/master/stable/nginx-ingress) is already installed. The dashboard is then accessible on `http://dashboard.127.0.0.1.nip.io`
 
 ```bash
 kubectl apply -f https://github.com/tektoncd/dashboard/releases/download/v0.1.1/release.yaml
@@ -36,6 +36,7 @@ tkn taskrun logs ${taskname}-taskrun
 |`param`| Usage of [input parameters](https://github.com/tektoncd/pipeline/blob/v0.7.0/docs/tasks.md#parameters) |
 |`resource`| Usage of pipeline resources. You need a git resource: e.g. `kubectl apply -f helloworld-java-spring/ci/java-spring-github-piperes.yaml` |
 |`volume`| Usage of mounted volumes |
+|`secret`| Usage of mounted volumes |
 
 
 
