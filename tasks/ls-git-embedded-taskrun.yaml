@@ -1,0 +1,34 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: go-example-git
+spec:
+  type: git
+  params:
+    - name: url
+      value: https://github.com/pivotal-nader-ziada/gohelloworld
+---
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: ls-git
+spec:
+  inputs:
+    resources:
+      - name: gitsource
+        resourceRef:
+          name: go-example-git
+  taskSpec:
+    inputs:
+      resources:
+        - name: gitsource
+          type: git
+    steps:
+      - name: ls
+        image: ubuntu
+        command:
+          - ls
+        args:
+          - -l
+          - -a
+          - /workspace/gitsource
