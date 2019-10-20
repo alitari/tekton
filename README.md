@@ -4,18 +4,39 @@
 
 ## install
 
+### prerequisites
+
+You need a kubernetes cluster where you can access with the cli-tools 
+
+- kubectl
+- helm
+
+You should also have the tekton cli `tkn` and for some automation steps `jq` is used. 
+
+For installing CRDS your k8s user need to have the admin-role.
+
+### tekton controller and CRDs
+
 ```bash
 kubectl apply -f https://storage.googleapis.com/tekton-releases/latest/release.yaml
 ```
 
-### install dashboard
+### ingress controller
 
-The ingress works only if an [ingress controller](https://github.com/helm/charts/tree/master/stable/nginx-ingress) is already installed. Find out the loadbalancer external ip of the service of the ingress controller and set the right ip in `dashboard-ingress.yaml`. Assuming a local cluster where ip is `127.0.0.1` , the dashboard is then accessible on `http://dashboard.127.0.0.1.nip.io`. 
+The ingress works only if an [ingress controller](https://github.com/helm/charts/tree/master/stable/nginx-ingress) is already installed. Install it with:
 
 ```bash
-kubectl apply -f https://github.com/tektoncd/dashboard/releases/download/v0.1.1/release.yaml
-kubectl apply -f dashboard-ingress.yaml
+helm install ingress-controller stable/nginx-ingress
 ```
+
+### tekton dashboard
+
+```bash
+./setup_dashboard.sh 
+```
+
+You should be able to access the dashboard on `http://dashboard.${INGRESS_CONTROLLER_IP}.nip.io`. 
+
 
 ## tasks
 
