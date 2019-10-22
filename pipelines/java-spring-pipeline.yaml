@@ -1,0 +1,54 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-deploy-pipeline
+spec:
+  resources:
+    - name: source-repo
+      type: git
+    - name: web-image
+      type: image
+  params:
+    - name: pathToDockerFile
+      type: string
+      default: Dockerfile
+    - name: pathToContext
+      type: string
+      # default: /workspace/source/helloworld-java-spring
+    - name: pathTodeployManifest
+      type: string
+      # default: /workspace/source/helloworld-java-spring/deployment.yaml
+
+    
+  tasks:
+    - name: build-task
+      taskRef:
+        name: git-docker-build-task
+      params:
+        - name: pathToDockerFile
+          value: "$(params.pathToDockerFile)"
+        - name: pathToContext
+          value: "$(params.pathToContext)"
+      resources:
+        inputs:
+          - name: source
+            resource: source-repo
+        outputs:
+          - name: builtImage
+            resource: web-image
+    - name: deploy-java-spring
+      taskRef:
+        name: deploy-kubectl
+      resources:
+        inputs:
+          - name: source
+            resource: source-repo
+          - name: image
+            resource: web-image
+            from:
+              - build-task
+      params:
+        - name: path
+          value: $(params.pathTodeployManifest)
+        - name: yamlPathToImage
+          value: "spec.template.spec.containers[0].image"

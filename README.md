@@ -105,6 +105,21 @@ See the build result here `https://hub.docker.com/r/alitari/helloworld-java-spri
 
 ## pipelines
 
+### examples
+
+```bash
+# create task
+kubectl apply -f pipelines/${pipelinename}-pipeline.yaml
+# run task
+kubectl apply -f pipelines/${pipelinename}-pipelinerun.yaml
+# inspect task run
+tkn pipelinerun logs ${pipelinename}-pipelinerun
+``` 
+
+| pipeline name | description |
+| ------------| -------- |
+|`simplest`| hello world |
+
 ### pipeline for a java spring app
 
 | in          | task     | out |
@@ -115,7 +130,7 @@ See the build result here `https://hub.docker.com/r/alitari/helloworld-java-spri
 #### create task and pipeline
 
 ```bash
-kubectl apply -f deploy-kubectl-task.yaml
-kubectl apply -f java-spring-pipeline.yaml
+kubectl apply -f tasks/deploy-kubectl-task.yaml
+kubectl apply -f pipelines/java-spring-pipeline.yaml
 ```
 
