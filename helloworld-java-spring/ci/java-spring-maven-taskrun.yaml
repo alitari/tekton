@@ -1,22 +1,26 @@
 apiVersion: tekton.dev/v1alpha1
 kind: TaskRun
 metadata:
-  name: java-spring-taskrun
+  name: helloworld-java-spring-maven-build-taskrun
 spec:
   taskRef:
-    name: git-docker-build-task
+    name: maven-build-task
   inputs:
     resources:
       - name: source
         resourceRef:
           name: helloworld-java-spring-github
     params:
-      - name: pathToDockerFile
-        value: Dockerfile
-      - name: pathToContext
+      - name: mavenTag
+        value: "3.6.2-jdk-8"
+      - name: ARGS
+        value:
+          - clean
+          - package
+      - name: pathToPom
         value: /workspace/source/helloworld-java-spring
   outputs:
     resources:
-      - name: builtImage
+      - name: target
         resourceRef:
-          name: helloworld-java-spring-image
+          name: gcs-storage

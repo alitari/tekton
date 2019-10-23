@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: maven-build-task
+spec:
+  inputs:
+    resources:
+      - name: source
+        type: git
+    params:
+      - name: mavenTag
+        type: string
+      - name: pathToPom
+        type: string
+        description: The path to the project pom
+        default: /workspace/source
+      - name: ARGS
+        type: array
+        description:
+          the maven arguments
+        default: 
+          - "-help"
+  outputs:
+    resources:
+      - name: target
+        type: storage
+        targetPath: $(inputs.params.pathToPom)/target
+  steps:
+    - name: "maven"
+      image: maven:$(inputs.params.mavenTag)
+      workingDir: $(inputs.params.pathToPom)
+      
+      command:
+        - mvn
+      args:
+        - "$(inputs.params.ARGS)"

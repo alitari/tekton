@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: gcs-storage
+spec:
+  type: storage
+  params:
+    - name: type
+      value: gcs
+    - name: location
+      value: gs://java-spring-helloworld-storage
+    - name: dir
+      value: "y" # This can have any value to be considered "true"
+  secrets:
+    - fieldName: GOOGLE_APPLICATION_CREDENTIALS
+      secretName: bucket-sa
+      secretKey: key.json
